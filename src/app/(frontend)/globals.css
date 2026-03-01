@@ -1,0 +1,48 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+
+@theme {
+  /* Sage green palette */
+  --color-sage-50: #f6f7f4;
+  --color-sage-100: #e8ebe3;
+  --color-sage-200: #d2d8c8;
+  --color-sage-300: #b3bea3;
+  --color-sage-400: #93a37d;
+  --color-sage-500: #768a60;
+  --color-sage-600: #5c6e4a;
+  --color-sage-700: #48573c;
+  --color-sage-800: #3b4633;
+  --color-sage-900: #333c2d;
+
+  /* Warm amber palette */
+  --color-amber-50: #fefbe8;
+  --color-amber-100: #fef3c7;
+  --color-amber-200: #fde68a;
+  --color-amber-300: #fcd34d;
+  --color-amber-400: #fbbf24;
+  --color-amber-500: #f59e0b;
+  --color-amber-600: #d97706;
+
+  /* Cream background */
+  --color-cream: #faf8f3;
+  --color-cream-dark: #f0ece3;
+
+  /* Fonts */
+  --font-sans: 'Inter', 'Nunito Sans', system-ui, -apple-system, sans-serif;
+}
+
+/* Prose customization for article content */
+.prose {
+  --tw-prose-headings: var(--color-sage-800);
+  --tw-prose-links: var(--color-sage-600);
+}
+
+.prose a:hover {
+  color: var(--color-sage-500);
+}
+
+/* Wiki-style internal links */
+.prose a[data-internal] {
+  text-decoration-style: dotted;
+  text-decoration-color: var(--color-sage-400);
+}
