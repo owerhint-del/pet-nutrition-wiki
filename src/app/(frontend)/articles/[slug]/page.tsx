@@ -28,6 +28,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
+
 export default async function ArticlePage({ params }: Props) {
   const { slug } = await params
   const payload = await getPayloadClient()
@@ -51,6 +53,29 @@ export default async function ArticlePage({ params }: Props) {
 
   return (
     <div>
+      {/* JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Article',
+            headline: article.title,
+            description: article.excerpt || '',
+            datePublished: article.publishedAt,
+            dateModified: article.updatedAt,
+            url: `${SITE_URL}/articles/${article.slug}`,
+            publisher: {
+              '@type': 'Organization',
+              name: 'Натуральное питание питомцев',
+            },
+            ...(featuredImage?.url && {
+              image: `${SITE_URL}${featuredImage.url}`,
+            }),
+          }),
+        }}
+      />
+
       {/* Breadcrumbs */}
       <nav className="mb-6 text-sm text-stone-500">
         <Link href="/" className="hover:text-sage-600">Главная</Link>
