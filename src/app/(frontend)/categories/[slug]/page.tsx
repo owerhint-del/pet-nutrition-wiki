@@ -45,10 +45,18 @@ export default async function CategoryPage({ params }: Props) {
         { status: { equals: 'published' } },
       ],
     },
-    sort: 'title',
+    sort: 'order',
     depth: 1,
     limit: 100,
   })
+
+  // Group articles by section
+  const sections = new Map<string, typeof articles>()
+  for (const article of articles) {
+    const section = (article.section as string) || 'Общее'
+    if (!sections.has(section)) sections.set(section, [])
+    sections.get(section)!.push(article)
+  }
 
   return (
     <div>
@@ -70,39 +78,50 @@ export default async function CategoryPage({ params }: Props) {
         <p className="mt-2 text-sm text-stone-400">{articles.length} статей</p>
       </div>
 
-      <div className="space-y-4">
-        {articles.map((article) => (
-          <Link
-            key={article.id}
-            href={`/articles/${article.slug}`}
-            className="group flex items-start gap-4 rounded-xl border border-sage-200 bg-white p-5 hover:border-sage-400 hover:shadow-md transition-all"
-          >
-            <div className="flex-1">
-              <div className="flex items-center gap-2 mb-1">
-                {article.contentType === 'transcript' && (
-                  <span className="rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-700">
-                    Видео
-                  </span>
-                )}
-                {article.species?.map((s) => (
-                  <span key={s} className="text-xs text-stone-400">
-                    {s === 'dogs' ? '🐕' : '🐈'}
-                  </span>
-                ))}
-              </div>
-              <h2 className="font-semibold text-sage-700 group-hover:text-sage-600">
-                {article.title}
+      <div className="space-y-8">
+        {[...sections.entries()].map(([sectionName, sectionArticles]) => (
+          <div key={sectionName}>
+            {sections.size > 1 && (
+              <h2 className="text-lg font-semibold text-sage-700 mb-3 pb-2 border-b border-sage-200">
+                {sectionName}
               </h2>
-              {article.excerpt && (
-                <p className="mt-1 text-sm text-stone-500 line-clamp-2">{article.excerpt}</p>
-              )}
-            </div>
-            {article.transcriptWordCount && article.transcriptWordCount > 3000 && (
-              <span className="shrink-0 text-xs text-stone-400">
-                ~{Math.round(article.transcriptWordCount / 200)} мин.
-              </span>
             )}
-          </Link>
+            <div className="space-y-3">
+              {sectionArticles.map((article) => (
+                <Link
+                  key={article.id}
+                  href={`/articles/${article.slug}`}
+                  className="group flex items-start gap-4 rounded-xl border border-sage-200 bg-white p-5 hover:border-sage-400 hover:shadow-md transition-all"
+                >
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-1">
+                      {article.contentType === 'transcript' && (
+                        <span className="rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-700">
+                          Видео
+                        </span>
+                      )}
+                      {article.species?.map((s) => (
+                        <span key={s} className="text-xs text-stone-400">
+                          {s === 'dogs' ? '🐕' : '🐈'}
+                        </span>
+                      ))}
+                    </div>
+                    <h2 className="font-semibold text-sage-700 group-hover:text-sage-600">
+                      {article.title}
+                    </h2>
+                    {article.excerpt && (
+                      <p className="mt-1 text-sm text-stone-500 line-clamp-2">{article.excerpt}</p>
+                    )}
+                  </div>
+                  {article.transcriptWordCount && article.transcriptWordCount > 3000 && (
+                    <span className="shrink-0 text-xs text-stone-400">
+                      ~{Math.round(article.transcriptWordCount / 200)} мин.
+                    </span>
+                  )}
+                </Link>
+              ))}
+            </div>
+          </div>
         ))}
       </div>
     </div>

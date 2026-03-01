@@ -49,6 +49,24 @@ export const Articles: CollectionConfig = {
       },
     },
     {
+      name: 'section',
+      type: 'text',
+      label: 'Подраздел',
+      admin: {
+        description: 'Группировка статей внутри категории (например: Основы, Дополнительно)',
+        position: 'sidebar',
+      },
+    },
+    {
+      name: 'order',
+      type: 'number',
+      label: 'Порядок',
+      defaultValue: 0,
+      admin: {
+        position: 'sidebar',
+      },
+    },
+    {
       name: 'category',
       type: 'relationship',
       relationTo: 'categories',

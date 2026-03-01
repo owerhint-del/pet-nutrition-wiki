@@ -157,6 +157,11 @@ export interface Article {
    * Отображается в карточках и мета-описании
    */
   excerpt?: string | null;
+  /**
+   * Группировка статей внутри категории (например: Основы, Дополнительно)
+   */
+  section?: string | null;
+  order?: number | null;
   category?: (number | null) | Category;
   tags?: (number | Tag)[] | null;
   species?: ('dogs' | 'cats')[] | null;
@@ -374,6 +379,8 @@ export interface ArticlesSelect<T extends boolean = true> {
   slug?: T;
   content?: T;
   excerpt?: T;
+  section?: T;
+  order?: T;
   category?: T;
   tags?: T;
   species?: T;
