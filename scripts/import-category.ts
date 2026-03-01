@@ -10,7 +10,7 @@ import path from 'path'
 import { getPayload } from 'payload'
 import config from '../src/payload.config'
 
-const CONTENT_DIR = '/Users/nmaximov/Documents/TgAssistant/Телеграм Ветеринарка/collected'
+const CONTENT_DIR = process.env.CONTENT_DIR || '/Users/nmaximov/Documents/TgAssistant/Телеграм Ветеринарка/collected'
 
 // Category metadata
 const CATEGORY_META: Record<string, { title: string; icon: string; description: string; order: number }> = {
