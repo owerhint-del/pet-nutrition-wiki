@@ -10,6 +10,10 @@ export const metadata: Metadata = {
     template: '%s — Натуральное питание питомцев',
   },
   description: 'Wiki-база знаний о натуральном питании собак и кошек. Гайды по переводу, рационы, продукты, советы ветеринаров.',
+  robots: {
+    index: false,
+    follow: false,
+  },
 }
 
 export default function FrontendLayout({ children }: { children: React.ReactNode }) {
