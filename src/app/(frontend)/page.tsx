@@ -1,6 +1,8 @@
 import Link from 'next/link'
 import { getPayloadClient } from '@/lib/payload'
 
+export const dynamic = 'force-dynamic'
+
 export default async function HomePage() {
   const payload = await getPayloadClient()
 

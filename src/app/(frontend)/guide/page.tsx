@@ -4,6 +4,8 @@ import { getPayloadClient } from '@/lib/payload'
 import { RichText } from '@/lib/richtext'
 import { TableOfContents } from '@/components/TableOfContents'
 
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title: 'Полный гайд по переводу на натуральное питание',
   description: 'Пошаговое руководство по переводу собак и кошек на натуральное питание. От основ до продвинутых рационов.',
